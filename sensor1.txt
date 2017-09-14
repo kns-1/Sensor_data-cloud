@@ -1,0 +1,27 @@
+#Uploading sensor data to cloud
+import urllib2 as URL
+import time
+
+#Upload Funtion Definition
+def sUpload(t1,t2):
+    print 'uploading data'
+    k=URL.urlopen('https://api.thingspeak.com/update?api_key=**************&field1='+str(t1)+'&field2='+str(t2))
+    print(k)
+    time.sleep(4)
+    print 'Data uploaded successfully'
+
+#Read Fuction Definition
+def sRead(t1):
+    print 'Reading data'
+    k=URL.urlopen('https://api.thingspeak.com/channels/*****/fields/'+str(t1)+'.json?results=1').read()
+    k=k.split('"')[-2]
+    time.sleep(4)
+    print 'Data Downloaded successfully'
+    return(k)
+
+
+#Uploading strings
+#sUpload("Hey how are you? ","Now I am working on IoT")
+k1=sRead(1)
+if(k1=='Hey how are you? '):  #these messages must be encrypted. oresle they might be hacked
+    print "I am fine"
